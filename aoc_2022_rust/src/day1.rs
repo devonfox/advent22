@@ -6,7 +6,7 @@ pub fn input_generator(input: &str) -> Vec<Vec<u32>> {
         .collect()
 }
 
-#[aoc(day1, part1)]
+#[aoc(day1, part1)] // From Jon Vuri's template
 pub fn part1(input: &Vec<Vec<u32>>) -> u32 {
     input.iter().map(|group| group.iter().sum()).max().unwrap()
 }
@@ -23,6 +23,7 @@ pub fn part2(input: &Vec<Vec<u32>>) -> u32 {
     grouped.reverse();
     grouped[0] + grouped[1] + grouped[2]
 }
+
 
 #[cfg(test)]
 mod tests {
