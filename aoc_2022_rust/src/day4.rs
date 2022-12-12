@@ -13,27 +13,19 @@ pub fn input_generator(input: &str) -> Vec<(u32, u32, u32, u32)> {
 pub fn part1(input: &Vec<(u32, u32, u32, u32)>) -> u32 {
     input
         .iter()
-        .map(
-            |(a, b, c, d)| match (a <= c && b >= d) || (a >= c && b <= d) {
-                true => 1,
-                false => 0,
-            },
-        )
-        .sum()
+        .filter(|(a, b, c, d)| (a <= c && b >= d) || (a >= c && b <= d))
+        .count() as u32
 }
+
 
 #[aoc(day4, part2)]
 pub fn part2(input: &Vec<(u32, u32, u32, u32)>) -> u32 {
     input
         .iter()
-        .map(
-            |(a, b, c, d)| match (c < b && a <= d) || (a < d && b >= c) || (a == c || b == d) {
-                true => 1,
-                false => 0,
-            },
-        )
-        .sum()
+        .filter(|(a, b, c, d)| (c < b && a <= d) || (a < d && b >= c) || (a == c || b == d))
+        .count() as u32
 }
+
 
 #[cfg(test)]
 mod tests {
