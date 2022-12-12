@@ -43,9 +43,33 @@ pub fn part1(input: &Vec<(u32, u32, u32)>) -> String {
         }
     }
 
-    stack
-        .iter()
-        .filter_map(|s| s.last()).copied().collect()
+    stack.iter().filter_map(|s| s.last()).copied().collect()
+}
+
+#[aoc(day5, part2)]
+pub fn part2(input: &Vec<(u32, u32, u32)>) -> String {
+    let mut stack: Vec<Vec<char>> = vec![
+        vec!['G', 'F', 'V', 'H', 'P', 'S'],
+        vec!['G', 'J', 'F', 'B', 'V', 'D', 'Z', 'M'],
+        vec!['G', 'M', 'L', 'J', 'N'],
+        vec!['N', 'G', 'Z', 'V', 'D', 'W', 'P'],
+        vec!['V', 'R', 'C', 'B'],
+        vec!['V', 'R', 'S', 'M', 'P', 'W', 'L', 'Z'],
+        vec!['T', 'H', 'P'],
+        vec!['Q', 'R', 'S', 'N', 'C', 'H', 'Z', 'V'],
+        vec!['F', 'L', 'G', 'P', 'V', 'Q', 'J'],
+    ];
+
+    for instruction in input {
+        let (qty, from, to) = instruction;
+        let departure = &mut stack[(from - 1) as usize];
+        let size: usize = departure.len();
+        let mut moved = departure.split_off(size - *qty as usize);
+        stack[(to - 1) as usize].append(&mut moved);
+
+    }   
+    
+    stack.iter().filter_map(|s| s.last()).copied().collect()
 }
 
 #[cfg(test)]
@@ -77,6 +101,31 @@ mod tests {
                 .collect()
         };
         assert_eq!(ans, "CMZ".to_string());
+    }
+
+    #[test]
+    pub fn totals_part2() {
+        let mut stack = vec![vec!['Z', 'N'], vec!['M', 'C', 'D'], vec!['P']];
+        let input =
+            "move 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\nmove 1 from 1 to 2";
+        let parsed = input_generator(input);
+
+        let ans: String = {
+            for instruction in parsed {
+                let (qty, from, to) = instruction;
+                let departure = &mut stack[(from - 1) as usize];
+                let size: usize = departure.len();
+                let mut moved = departure.split_off(size - qty as usize);
+                stack[(to - 1) as usize].append(&mut moved);
+
+            }   
+            stack
+                .iter()
+                .filter_map(|s| s.last())
+                .map(|val| *val)
+                .collect()
+        };
+        assert_eq!(ans, "MCD".to_string());
     }
 
     #[test]
