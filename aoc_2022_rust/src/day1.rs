@@ -24,12 +24,11 @@ pub fn part2(input: &Vec<Vec<u32>>) -> u32 {
     grouped[0] + grouped[1] + grouped[2]
 }
 
-
 #[cfg(test)]
 mod tests {
     use crate::day1::input_generator;
 
-    use super::part1;
+    use super::{part1, part2};
 
     #[test]
     fn parses() {
@@ -41,8 +40,25 @@ mod tests {
     }
 
     #[test]
-    fn finds_max() {
-        let input: Vec<Vec<u32>> = vec![vec![100, 200], vec![100, 100]];
-        assert_eq!(part1(&input), 300);
+    fn totals_part1() {
+        let input: Vec<Vec<u32>> = vec![
+            vec![1000, 2000, 3000],
+            vec![4000],
+            vec![5000, 6000],
+            vec![7000, 8000, 9000],
+            vec![10000],
+        ];
+        assert_eq!(part1(&input), 24000);
+    }
+    #[test]
+    fn totals_part2() {
+        let input: Vec<Vec<u32>> = vec![
+            vec![1000, 2000, 3000],
+            vec![4000],
+            vec![5000, 6000],
+            vec![7000, 8000, 9000],
+            vec![10000],
+        ];
+        assert_eq!(part2(&input), 45000);
     }
 }
