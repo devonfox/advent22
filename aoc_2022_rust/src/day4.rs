@@ -22,7 +22,7 @@ pub fn part1(input: &Vec<(u32, u32, u32, u32)>) -> u32 {
 pub fn part2(input: &Vec<(u32, u32, u32, u32)>) -> u32 {
     input
         .iter()
-        .filter(|(a, b, c, d)| (c < b && a <= d) || (a < d && b >= c) || (a == c || b == d))
+        .filter(|(a, b, c, d)| (c < b && a <= d) || (a < d && b >= c) || (a == b))
         .count() as u32
 }
 
