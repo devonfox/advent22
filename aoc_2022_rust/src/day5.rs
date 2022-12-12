@@ -15,10 +15,9 @@ use aoc_parse::{parser, prelude::*};
 #[aoc_generator(day5)]
 pub fn input_generator(input: &str) -> Vec<(u32, u32, u32)> {
     let input = input.to_string() + "\n";
-    let p = parser!(lines("move " u32 " from " u32 " to " u32))
+    parser!(lines("move " u32 " from " u32 " to " u32))
         .parse(&input)
-        .unwrap();
-    p
+        .unwrap()
 }
 
 #[aoc(day5, part1)]
@@ -46,9 +45,7 @@ pub fn part1(input: &Vec<(u32, u32, u32)>) -> String {
 
     stack
         .iter()
-        .filter_map(|s| s.last())
-        .map(|val| *val)
-        .collect()
+        .filter_map(|s| s.last()).copied().collect()
 }
 
 #[cfg(test)]
@@ -79,7 +76,6 @@ mod tests {
                 .map(|val| *val)
                 .collect()
         };
-        println!("{:?}", input);
         assert_eq!(ans, "CMZ".to_string());
     }
 
