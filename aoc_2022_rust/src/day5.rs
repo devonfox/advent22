@@ -34,28 +34,21 @@ pub fn part1(input: &Vec<(u32, u32, u32)>) -> String {
         vec!['Q', 'R', 'S', 'N', 'C', 'H', 'Z', 'V'],
         vec!['F', 'L', 'G', 'P', 'V', 'Q', 'J'],
     ];
-    let mut result = String::new();
 
     for instruction in input {
         let (qty, from, to) = instruction;
-
         for _ in 0..*qty {
-            let popped = stack[(from - 1) as usize].pop();
-            match popped {
-                Some(val) => stack[(to - 1) as usize].push(val as char),
-                _ => (),
+            if let Some(val) = stack[(from - 1) as usize].pop() {
+                stack[(to - 1) as usize].push(val);
             }
         }
     }
 
-    for s in stack {
-        match s.last() {
-            Some(val) => result.push(*val),
-            None => (),
-        }
-    }
-
-    String::from(result)
+    stack
+        .iter()
+        .filter_map(|s| s.last())
+        .map(|val| *val)
+        .collect()
 }
 
 #[cfg(test)]
@@ -70,29 +63,21 @@ mod tests {
             "move 1 from 2 to 1\nmove 3 from 1 to 3\nmove 2 from 2 to 1\nmove 1 from 1 to 2";
         let parsed = input_generator(input);
 
-        let ans = {
-            let mut result = String::new();
-
+        let ans: String = {
             for instruction in parsed {
                 let (qty, from, to) = instruction;
-
                 for _ in 0..qty {
-                    let popped = stack[(from - 1) as usize].pop();
-                    match popped {
-                        Some(val) => stack[(to - 1) as usize].push(val),
-                        None => (),
+                    if let Some(val) = stack[(from - 1) as usize].pop() {
+                        stack[(to - 1) as usize].push(val);
                     }
                 }
             }
 
-            for s in stack {
-                match s.last() {
-                    Some(val) => result.push(*val),
-                    None => (),
-                }
-            }
-
-            result.to_string()
+            stack
+                .iter()
+                .filter_map(|s| s.last())
+                .map(|val| *val)
+                .collect()
         };
         println!("{:?}", input);
         assert_eq!(ans, "CMZ".to_string());
