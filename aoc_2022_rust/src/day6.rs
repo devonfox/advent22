@@ -12,10 +12,9 @@ pub fn part1(input: &Vec<char>) -> u32 {
     for i in 0..input.len() {
         if i >= 3 {
             let mut checked: HashSet<char> = HashSet::new();
-            checked.insert(input[i - 3]);
-            checked.insert(input[i - 2]);
-            checked.insert(input[i - 1]);
-            checked.insert(input[i]);
+            for j in 0..4 {
+                checked.insert(input[i - j]);
+            }
 
             if checked.len() == 4 {
                 return i as u32 + 1;
@@ -29,22 +28,11 @@ pub fn part1(input: &Vec<char>) -> u32 {
 pub fn part2(input: &Vec<char>) -> u32 {
     let mut ans = 0;
     for i in 0..input.len() {
-        if i >= 15 {
+        if i >= 14 {
             let mut checked: HashSet<char> = HashSet::new();
-            checked.insert(input[i - 13]);
-            checked.insert(input[i - 12]);
-            checked.insert(input[i - 11]);
-            checked.insert(input[i - 10]);
-            checked.insert(input[i - 9]);
-            checked.insert(input[i - 8]);
-            checked.insert(input[i - 7]);
-            checked.insert(input[i - 6]);
-            checked.insert(input[i - 5]);
-            checked.insert(input[i - 4]);
-            checked.insert(input[i - 3]);
-            checked.insert(input[i - 2]);
-            checked.insert(input[i - 1]);
-            checked.insert(input[i]);
+            for j in 0..14 {
+                checked.insert(input[i - j]);
+            }
 
             if checked.len() == 14 {
                 ans = i + 1;
