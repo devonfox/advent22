@@ -40,6 +40,7 @@ pub fn part1(input: &Vec<Vec<String>>) -> u32 {
                 if !input[i][1].contains("cd") {
                     print!("1 {}", input[i][1]);
                 }
+                
             } else if input[i][0].contains("dir") {
                 print!("2 {} ", input[i][1]);
             } else {
